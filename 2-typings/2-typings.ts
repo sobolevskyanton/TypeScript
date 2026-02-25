@@ -30,7 +30,7 @@ let TENTHS_LESS_THAN_HUNDRED: string[] = [
  * @param {boolean} [asOrdinal] - Deprecated, use toWordsOrdinal() instead!
  * @returns {string}
  */
-function toWords(number: string, asOrdinal: boolean): string {
+function toWords(number: string|string, asOrdinal?: boolean): string {
     let words: string;
     let num: number = parseInt(number, 10);
 
@@ -68,11 +68,11 @@ function generateWords(number:number, words:string[]=[]):string {
 
     if (number < 20) {
         remainder = 0;
-        word = LESS_THAN_TWENTY[number] || '';
+        word = LESS_THAN_TWENTY[number] ?? '';
 
     } else if (number < ONE_HUNDRED) {
         remainder = number % TEN;
-        word = TENTHS_LESS_THAN_HUNDRED[Math.floor(number / TEN)] || '';
+        word = TENTHS_LESS_THAN_HUNDRED[Math.floor(number / TEN)] ?? '';
         // In case of remainder, we need to handle it here to be able to add the “-”
         if (remainder) {
             word += '-' + LESS_THAN_TWENTY[remainder];
