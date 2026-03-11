@@ -3,6 +3,13 @@ let userData = null;
 
 type Gender = 'male' | 'female';
 
+enum UserRole {
+    Admin = 'admin',
+    User = 'user',
+    Moderator = 'moderator',
+    Guest = 'guest'
+}
+
 interface APIResponse {
     users: User[],
     total: number,
@@ -78,7 +85,7 @@ interface User {
         wallet: string,
         network: string
     },
-    role: string
+    role: UserRole
 }
 
 async function fetchApi(url: string): Promise<APIResponse> {
@@ -99,8 +106,14 @@ async function fetchApi(url: string): Promise<APIResponse> {
 }
 
 async function startApp() {
-    userData = await fetchApi(url);
-    console.log(userData);
+    try {
+        userData = await fetchApi(url);
+        console.log(userData);
+    } catch (error) {
+        userData = null;
+        console.log('Error catched by Parent function')
+    }
+    
 }
 
 startApp()
