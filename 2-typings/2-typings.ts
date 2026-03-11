@@ -109,4 +109,4 @@ function generateWords(number:number, words:string[]=[]):string {
     return generateWords(remainder, words);
 }
 
-module.exports = toWords;
+//module.exports = toWords;
