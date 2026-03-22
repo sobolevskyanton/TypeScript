@@ -2,11 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const url = 'https://dummyjson.com/users';
 let userData = null;
-/*interface Response {
-    users: User[],
-
-
-}*/
+var UserRole;
+(function (UserRole) {
+    UserRole["Admin"] = "admin";
+    UserRole["User"] = "user";
+    UserRole["Moderator"] = "moderator";
+    UserRole["Guest"] = "guest";
+})(UserRole || (UserRole = {}));
 async function fetchApi(url) {
     try {
         const response = await fetch(url);
@@ -18,11 +20,18 @@ async function fetchApi(url) {
     }
     catch (error) {
         console.log('Error: ', error);
+        throw error;
     }
 }
 async function startApp() {
-    userData = await fetchApi(url);
-    console.log(userData);
+    try {
+        userData = await fetchApi(url);
+        console.log(userData);
+    }
+    catch (error) {
+        userData = null;
+        console.log('Error catched by Parent function');
+    }
 }
 startApp();
 //# sourceMappingURL=4-dummy-api.js.map
